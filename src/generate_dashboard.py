@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import os
+import math
 from jinja2 import Environment, FileSystemLoader
 
 def main():
@@ -55,7 +56,21 @@ def main():
         }
     }
 
-    # 4. 템플릿 렌더링
+    # 4. 실시간 인기 매물 (조회수 기준 Top 5)
+    popular_df = df.sort_values(by='viewCount', ascending=False).head(5)
+    popular_items_raw = popular_df[['title', 'deposit', 'monthlyRent', 'premium', 'viewCount', 'previewPhotoUrl', 'businessLargeCodeName']].to_dict(orient='records')
+    
+    popular_items = []
+    for item in popular_items_raw:
+        clean_item = {}
+        for k, v in item.items():
+            if pd.isna(v):
+                clean_item[k] = ""
+            else:
+                clean_item[k] = v
+        popular_items.append(clean_item)
+
+    # 5. 템플릿 렌더링
     template_dir = os.path.join(base_dir, 'src', 'templates')
     env = Environment(loader=FileSystemLoader(template_dir))
     template = env.get_template('dashboard_template.html')
@@ -65,13 +80,14 @@ def main():
         avg_deposit=avg_deposit,
         avg_rent=avg_rent,
         no_premium_ratio=no_premium_ratio,
-        chart_data_json=json.dumps(chart_data, ensure_ascii=False)
+        chart_data_json=json.dumps(chart_data, ensure_ascii=False),
+        popular_items=popular_items
     )
 
-    # 5. 파일 저장
+    # 6. 파일 저장
     docs_dir = os.path.join(base_dir, 'docs')
     os.makedirs(docs_dir, exist_ok=True)
-    output_path = os.path.join(docs_dir, 'dashboard.html')
+    output_path = os.path.join(docs_dir, 'index.html')
     
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(output_html)

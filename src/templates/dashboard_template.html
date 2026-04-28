@@ -107,6 +107,53 @@
         </div>
     </div>
 
+    <!-- Popular Items Section -->
+    <div class="max-w-7xl mx-auto mt-2 mb-8 px-6 lg:px-0">
+        <h2 class="text-2xl font-bold mb-6 text-gray-100 border-l-4 border-blue-500 pl-3">실시간 인기 매물 Top 5 (조회수 기준)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {% for item in popular_items %}
+            <div class="bg-dark-card rounded-xl border border-dark-border overflow-hidden card-hover shadow-lg flex flex-col">
+                <div class="h-40 bg-gray-800 relative">
+                    {% if item.previewPhotoUrl %}
+                    <img src="{{ item.previewPhotoUrl }}" alt="매물 사진" class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-500 text-sm">사진 없음</div>
+                    {% endif %}
+                    <div class="absolute top-2 right-2 bg-blue-600 bg-opacity-90 text-white text-xs px-2 py-1 rounded-full font-semibold shadow">
+                        조회수 {{ "{:,}".format(item.viewCount) }}
+                    </div>
+                </div>
+                <div class="p-4 flex-grow flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs text-blue-400 font-medium mb-1 block">{{ item.businessLargeCodeName }}</span>
+                        <h3 class="text-sm font-bold text-gray-100 mb-2 line-clamp-2" title="{{ item.title }}">{{ item.title }}</h3>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-dark-border">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-400">보증금</span>
+                            <span class="font-semibold text-gray-200">{{ "{:,.0f}".format(item.deposit) }}만원</span>
+                        </div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-400">월세</span>
+                            <span class="font-semibold text-green-400">{{ "{:,.0f}".format(item.monthlyRent) }}만원</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">권리금</span>
+                            <span class="font-semibold text-purple-400">
+                                {% if item.premium > 0 %}
+                                {{ "{:,.0f}".format(item.premium) }}만원
+                                {% else %}
+                                무권리
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
     <!-- Data Injection -->
     <script>
         const chartData = {{ chart_data_json | safe }};

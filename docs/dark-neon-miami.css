@@ -1,0 +1,85 @@
+/* @theme dark-neon-miami */
+
+@import 'default';
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap');
+
+section {
+  background-color: #0A0014;
+  color: #FFFFFF;
+  font-family: 'Space Mono', monospace;
+  font-size: 24px;
+  
+  /* Perspective grid lines converging toward horizon */
+  background-image: 
+    linear-gradient(rgba(255, 0, 128, 0.2) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 0, 128, 0.2) 2px, transparent 2px);
+  background-size: 60px 60px;
+  background-position: center bottom;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  /* Title gradient: Orange -> pink -> purple */
+  background: linear-gradient(to right, #FF6B35, #FF0080, #9B00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 45px;
+}
+
+h3 {
+  font-size: 35px;
+}
+
+/* Sunset semicircle in lower-center */
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 250px;
+  background: linear-gradient(to top, #FF0080, #FF6B35);
+  border-top-left-radius: 400px;
+  border-top-right-radius: 400px;
+  z-index: -1;
+  opacity: 0.4;
+  filter: blur(20px);
+}
+
+ul, ol {
+  background: rgba(10, 0, 20, 0.8);
+  padding: 30px 40px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 0, 128, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.2);
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+strong {
+  color: #FF6B35;
+}
+
+img {
+  border: 2px solid #FF0080;
+  box-shadow: 0 0 15px #FF0080;
+  border-radius: 8px;
+  max-width: 48%;
+  display: inline-block;
+  margin: 1%;
+}

@@ -1,4 +1,4 @@
-/* @theme dark-neon-miami */
+﻿/* @theme dark-neon-miami */
 
 @import 'default';
 
@@ -79,7 +79,10 @@ img {
   border: 2px solid #FF0080;
   box-shadow: 0 0 15px #FF0080;
   border-radius: 8px;
-  max-width: 48%;
+  max-width: 46%;
   display: inline-block;
-  margin: 1%;
+  margin: 0 1%;
 }
+
+img + br { display: none; }
+p:has(> img) { text-align: center; }

@@ -25,7 +25,6 @@ data/nemo_data.db
 
 # Project Specific
 scratch/
-images/
 data/
 
 # IDEs and Editors
